@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MVC.Models.mvcCustomerModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+@*<h2>Index</h2>*@
+
+<p>
+    <a href="@Url.Action("AddOrEdit","Customer")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+
+    @*<a href="@Url.Action("","Customer")" class="btn btn-default"><i class="fa fa-trash"></i> Export to CSV</a>*@
+
+    @*<a onclick="ExportContentToCSV" class="btn btn-default"><i class="fa fa-arrow-right"></i> Export to CSV</a>*@
+
+    @Html.ActionLink("Export to CSV", "ExportContentToCSV")
+</p>
+<div>
+    @*@Html.ActionLink("Export to CSV", "ExportContentToCSV")*@
+</div>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceID)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceID)
+            </td>
+            <td>
+                <a href="@Url.Action("AddOrEdit", "Customer", new { id = item.CustomerID })" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
+                <a onclick="Delete(@item.CustomerID)" class="btn btn-default"><i class="fa fa-trash"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@using (Html.BeginForm("Index", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="postedFile" class="btn btn-default" />
+    <input type="submit" value="Import Data" class="btn btn-default" />
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        function Delete(id) {
+            alertify.confirm('Web API CRUD Operations', 'Sure To Delete This Record?', function () {
+                window.location.href = '@Url.Action("Delete", "Customer")/' + id;
+            }, null);
+        }
+    </script>
+}
