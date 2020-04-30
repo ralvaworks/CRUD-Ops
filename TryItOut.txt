@@ -1,0 +1,14 @@
+Clone or Download the Master Branch (CRUD-Ops)
+
+DATABASE
+1. Using Microsoft SQL Server, identify the Local Server Name, (LocalDB)\MSSQLLocalDB for my case.
+2. Create the database (a0DCRUDDB) & table (Customer) using the corresponding scripts (refer to SQL Scripts folder).
+3. Then load sample data using the corresponding script.
+
+SOURCE CODE
+1. Inside a0WebApiMVC folder, open a0WebApiMVC.sln with Visual Studio.
+
+The APPLICATION
+A WebAPI with CRUD functionalities consumed by an ASP.NET MVC Application.
+Two browser tabs will be opened when the application is run. Use the Customer Register page for this purpose.
+Try out the CRUD operations, export records to a CSV file & import CSV data (refer to Sample Data folder) into the database.
